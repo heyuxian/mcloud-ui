@@ -1,3 +1,5 @@
-# Deprecated! All files will be moved to new repository.
+# MCloud UI
 
-We decided to move Vue Version to separate repository. You can find all files here: [CoreUI Vue Version](https://github.com/mrholek/CoreUI-Vue)
+[MCloud](https://github.com/heyuxian/mcloud)
+
+Powered by [CoreUI Vue Version](https://github.com/mrholek/CoreUI-Vue)
