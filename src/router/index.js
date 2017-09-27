@@ -7,13 +7,13 @@ import Full from '@/containers/Full'
 import Index from '@/views/front/Index'
 
 // User Views
-import Client from '@/views/user/Client'
 import User from '@/views/user/User'
 
 import Page404 from '@/views/pages/Page404'
 import Page500 from '@/views/pages/Page500'
-import Login from '@/views/pages/Login'
+import LoginSuccess from '@/views/pages/LoginSuccess'
 import Register from '@/views/pages/Register'
+import store from '../store/store'
 
 Vue.use(Router)
 
@@ -31,7 +31,7 @@ const routes = [
     children: [
       {
         path: 'home',
-        name: 'User Home',
+        name: 'Home',
         component: User
       },
       {
@@ -54,7 +54,7 @@ const routes = [
           {
             path: 'list',
             name: 'Clients',
-            component: Client
+            component: User
           }
         ]
       }
@@ -83,9 +83,9 @@ const routes = [
     ]
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/login/success',
+    name: 'LoginSuccess',
+    component: LoginSuccess
   },
   {
     path: '/register',
@@ -105,10 +105,12 @@ const router = new Router(
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.auth)) {
-    next({
-      path: '/login',
-      query: {redirect: to.fullPath}
-    })
+    if (store.state.token) {
+      console.log(store.state.token)
+      next()
+    } else {
+      window.location.href = encodeURIComponent('http://localhost:8899/uaa/oauth/login?redirectUrl=http://localhost/#/login/success')
+    }
   } else {
     next()
   }

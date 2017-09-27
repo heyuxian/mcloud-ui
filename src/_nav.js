@@ -7,12 +7,12 @@ export default {
     },
     {
       name: 'User',
-      url: '/user',
+      url: '/users',
       icon: 'icon-user',
       children: [
         {
           name: 'Users',
-          url: '/user/list',
+          url: '/users/me/blog',
           icon: 'icon-puzzle'
         }
       ]

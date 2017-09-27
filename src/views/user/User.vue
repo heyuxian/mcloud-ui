@@ -1,23 +1,9 @@
 <template>
-  <div class="animated fadeIn">
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="user in users">
-        <th scope="row">{{user.id}}</th>
-        <td>{{user.title}}</td>
-        <td>{{user.createDate}}</td>
-        <td>@mdo</td>
-      </tr>
-      </tbody>
-    </table>
+  <div>
+    <button v-on:click="refresh">Refresh</button>
+    <p>
+      {{user}}
+    </p>
   </div>
 </template>
 
@@ -26,7 +12,7 @@
     name: 'user',
     data () {
       return {
-        users: []
+        user: {}
       }
     },
     mounted () {
@@ -36,10 +22,13 @@
       getUserList () {
         let that = this
         this.axios.get('/users/me').then(function (response) {
-          that.users = response.data.content
+          that.user = response.data
         }).catch(function (e) {
           console.log(e)
         })
+      },
+      refresh () {
+        this.getUserList()
       }
     }
   }

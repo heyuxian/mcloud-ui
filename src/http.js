@@ -4,12 +4,11 @@ import store from './store/store'
 import * as types from './store/types'
 
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = 'http://localhost:8081'
-
+// axios.defaults.baseURL = 'http://localhost:8081'
 axios.interceptors.request.use(
   config => {
     if (store.state.token) {
-      config.headers.Authorization = `token ${store.state.token}`
+      config.headers.Authorization = `Bearer ${store.state.token}`
     }
     return config
   },
@@ -22,7 +21,6 @@ axios.interceptors.response.use(
     return response
   },
   error => {
-    console.log(error)
     if (error.response) {
       switch (error.response.status) {
         case 401:
@@ -33,7 +31,7 @@ axios.interceptors.response.use(
           })
       }
     }
-    return Promise.reject(error.response.data)
+    return Promise.reject(error)
   })
 
 export default axios
